@@ -12,12 +12,13 @@
 
 <div class="container">
     <h1 th:text="${pizza.name}"></h1>
-    <div class="card d-flex">
-        <img th:src="${pizza.picUrl}" class="card-img-top" alt="...">
+    <div class="card d-flex" style="width: 30rem;">
+        <img th:src="${pizza.picUrl}" class="card-img-top my-img" alt="...">
         <div class="card-body">
             <h5 th:text="${pizza.name}" class="card-title"></h5>
             <p th:text="${pizza.description}" class="card-text"></p>
             <p th:text="|Price: ${pizza.price}|" class="card-text"></p>
+            <p th:text="|Created: ${pizza.getFormattedCreatedAt}|" class="card-text"></p>
             <!--            <a href="#" class="btn btn-primary">Go somewhere</a>-->
         </div>
     </div>

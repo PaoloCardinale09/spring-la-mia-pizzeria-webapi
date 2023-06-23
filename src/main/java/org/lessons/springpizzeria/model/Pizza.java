@@ -3,6 +3,8 @@ package org.lessons.springpizzeria.model;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "pizzas")
@@ -19,6 +21,15 @@ public class Pizza {
     private String picUrl;
 
     private BigDecimal price;
+    private LocalDateTime createdAt;
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 
     public Integer getId() {
         return id;
@@ -61,8 +72,8 @@ public class Pizza {
     }
 
     // custom getter per timestamp formattato
-//    public String getFormattedCreatedAt() {
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MMMM dd 'at' HH:mm");
-//        return createdAt.format(formatter);
-//    }
+    public String getFormattedCreatedAt() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(" dd MMMM  yyyy 'at' HH:mm");
+        return createdAt.format(formatter);
+    }
 }
