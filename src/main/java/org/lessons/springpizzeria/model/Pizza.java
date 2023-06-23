@@ -59,4 +59,10 @@ public class Pizza {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
+
+    // custom getter per timestamp formattato
+//    public String getFormattedCreatedAt() {
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MMMM dd 'at' HH:mm");
+//        return createdAt.format(formatter);
+//    }
 }
