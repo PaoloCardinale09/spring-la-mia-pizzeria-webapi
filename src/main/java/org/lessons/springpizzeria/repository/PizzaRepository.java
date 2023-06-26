@@ -10,4 +10,6 @@ public interface PizzaRepository extends JpaRepository<Pizza, Integer> {
     List<Pizza> findByName(String name);
 
     List<Pizza> findByNameContainingIgnoreCase(String name);
+
+    //metodo per cercare una cosa univoca
 }

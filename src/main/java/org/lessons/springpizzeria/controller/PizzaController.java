@@ -1,17 +1,17 @@
 package org.lessons.springpizzeria.controller;
 
+import jakarta.validation.Valid;
 import org.lessons.springpizzeria.model.Pizza;
 import org.lessons.springpizzeria.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,9 +57,33 @@ public class PizzaController {
             model.addAttribute("pizza", result.get());
         } else {
             // ritorno http status 404
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza with id " + pizzaId + "not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza with id " + pizzaId + " not found");
         }
         //ritorna template
         return "/pizzas/detailPizza";
+    }
+
+    // controller che restituisce la pagina con il form di creazione della nuova pizza
+    @GetMapping("/create")
+    public String create(Model model) {
+        model.addAttribute("pizza", new Pizza());
+        return "/pizzas/create"; // template del form di creazione pizza
+    }
+
+    // controller che gestisce la post del form con i dati della nuova pizza
+    @PostMapping("/create")
+    public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult) {
+        // i dati della pizza sono dentro formPizza
+        // verifico se ci sono errori
+        if (bindingResult.hasErrors()) {
+            return "/pizzas/create"; // ritorno il tamplate del form con la pizza precaricata
+        }
+        // setto timestamp di creazione
+        formPizza.setCreatedAt(LocalDateTime.now());
+        // metodo save salve se non esiste altrimenti fa update
+        pizzaRepository.save(formPizza);
+
+        // se tutto va a buon fine ritorna la lista delle pizze
+        return "redirect:/pizzas";
     }
 }

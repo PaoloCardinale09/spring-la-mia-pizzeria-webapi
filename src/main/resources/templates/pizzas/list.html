@@ -8,17 +8,21 @@
 <nav th:replace="~{/fragments/navbar :: navbar(current='pizzas')}"></nav>
 <div class="container">
     <h1 class="text-danger">Pizzas List</h1>
-    <div>
-        <form th:action="@{/pizzas}" method="GET">
+    <div class="d-flex justify-content-between align-items-center my-3">
+        <a class="btn btn-primary" th:href="@{/pizzas/create}">Add pizza</a>
 
-            <div class="input-group ">
-                <input type="search" class="form-control" placeholder="Search by title" name="keyword"
-                       th:value="${searchInput}">
-                <button class="btn btn-outline-secondary" type="submit"><i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-            </div>
+        <div>
+            <form th:action="@{/pizzas}" method="GET">
 
-        </form>
+                <div class="input-group ">
+                    <input type="search" class="form-control" placeholder="Search by title" name="keyword"
+                           th:value="${searchInput}">
+                    <button class="btn btn-outline-secondary" type="submit"><i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+
+            </form>
+        </div>
     </div>
     <table class="table" th:if="${pizzasList.size()>0}">
         <thead>

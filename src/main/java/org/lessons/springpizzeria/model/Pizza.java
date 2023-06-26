@@ -1,6 +1,9 @@
 package org.lessons.springpizzeria.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -9,18 +12,23 @@ import java.time.format.DateTimeFormatter;
 @Entity
 @Table(name = "pizzas")
 public class Pizza {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotBlank(message = "Name must not be null or blank")
+
     @Column(nullable = false)
     private String name;
-
+    @NotBlank(message = "Description must not be null or blank")
+    @Size(max = 255, message = "The description must be a maximum of 255 characters")
+    @Lob // annotazione per dare un long text
     private String description;
-
+    @Column(length = 1000)
+    @Size(max = 1000, message = "The Url must be a maximum of 1000 characters")
     private String picUrl;
-
+    @DecimalMin(value = "0.0", inclusive = false, message = "The price must be greater than 0")
     private BigDecimal price;
+
     private LocalDateTime createdAt;
 
     public LocalDateTime getCreatedAt() {
