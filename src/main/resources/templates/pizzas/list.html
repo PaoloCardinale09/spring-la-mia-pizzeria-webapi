@@ -30,7 +30,7 @@
             <th scope="col">#</th>
             <th scope="col">Name</th>
             <th scope="col">Description</th>
-            <th scope="col">Price</th>
+            <th class="w-5" scope="col">Price</th>
             <th></th>
         </tr>
         </thead>
@@ -39,7 +39,7 @@
             <td th:text="${pizza.id}"></td>
             <td th:text="${pizza.name}"></td>
             <td th:text="${pizza.description}"></td>
-            <td th:text="${pizza.price}"></td>
+            <td th:text="${pizza.price + ' €'} "></td>
             <td>
                 <a th:href="@{|/pizzas/${pizza.id}|}"><i class="fa-solid fa-circle-info"></i></a>
             </td>
