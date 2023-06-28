@@ -3,6 +3,7 @@ package org.lessons.springpizzeria.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
@@ -27,6 +28,7 @@ public class Pizza {
     @Size(max = 1000, message = "The Url must be a maximum of 1000 characters")
     private String picUrl;
     @DecimalMin(value = "0.0", inclusive = false, message = "The price must be greater than 0")
+    @NotNull(message = "The price must be greater than 0")
     private BigDecimal price;
 
     private LocalDateTime createdAt;

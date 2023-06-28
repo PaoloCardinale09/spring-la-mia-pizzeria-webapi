@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="/fragments/resources :: head">
+<head th:insert="/fragments/resources :: head(pageTitle='Pizza Details')">
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -17,7 +17,7 @@
         <div class="card-body">
             <h5 th:text="${pizza.name}" class="card-title"></h5>
             <p th:text="${pizza.description}" class="card-text"></p>
-            <p th:text="|Price: ${pizza.price}|" class="card-text"></p>
+            <p th:text="|Price: ${pizza.price} €|" class="card-text"></p>
             <p th:text="|Created: ${pizza.getFormattedCreatedAt}|" class="card-text"></p>
             <!--            <a href="#" class="btn btn-primary">Go somewhere</a>-->
         </div>

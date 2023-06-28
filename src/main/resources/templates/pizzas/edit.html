@@ -1,31 +1,33 @@
 <!doctype html>
 <html lang="en xmlns:th="http://www.thymeleaf.org"">
 <head>
-    <head th:insert="/fragments/resources :: head(pageTitle='New Pizza')">
+    <head th:insert="/fragments/resources :: head(pageTitle='Pizzas Form')">
 
-        <title>New pizza</title>
+        <title>Form pizza</title>
     </head>
-<body>
+<!--nel body ho una variabile edit booleana in base se ha id  o no-->
+<body th:with="isEdit=${pizza.id !=null}">
 <nav th:replace="~{/fragments/navbar :: navbar(current='pizzas')}"></nav>
 <div class="container">
 
-    <h1>create new pizza</h1>
+    <h1 th:text="${isEdit ? 'Edit Pizza' : 'New Pizza' }">create new pizza</h1>
     <hr>
     <!-- form di creazione-->
     <form
-            th:action="@{/pizzas/create}"
+            th:with="formAction=${isEdit ? '/pizzas/edit/' + pizza.id : '/pizzas/create'}"
+            th:action="@{${formAction}}"
             th:object="${pizza}"
             method="post"
             id="pizza-form"
             class="row"
     >
-<!--        <div th:if="${#fields.hasErrors()}">-->
-<!--            <ul>-->
-<!--                <li th:each="err : ${#fields.allErrors()}" th:text="${err}">-->
+        <!--        <div th:if="${#fields.hasErrors()}">-->
+        <!--            <ul>-->
+        <!--                <li th:each="err : ${#fields.allErrors()}" th:text="${err}">-->
 
-<!--                </li>-->
-<!--            </ul>-->
-<!--        </div>-->
+        <!--                </li>-->
+        <!--            </ul>-->
+        <!--        </div>-->
 
         <div class="col-6 mb-3">
             <label class="form-label" for="pizza-name">Name*</label>
