@@ -9,6 +9,7 @@ import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Entity
 @Table(name = "pizzas")
@@ -32,6 +33,9 @@ public class Pizza {
     private BigDecimal price;
 
     private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "pizza")
+    private List<SpecialOffer> specialOffers; // relazione con le special offers
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
@@ -79,6 +83,14 @@ public class Pizza {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public List<SpecialOffer> getSpecialOffers() {
+        return specialOffers;
+    }
+
+    public void setSpecialOffers(List<SpecialOffer> specialOffers) {
+        this.specialOffers = specialOffers;
     }
 
     // custom getter per timestamp formattato
