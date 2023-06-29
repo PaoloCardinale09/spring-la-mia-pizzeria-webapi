@@ -26,7 +26,10 @@
     </section>
     <section>
         <h2>Special offers</h2>
-        <table class="table">
+        <div class="my-3">
+            <a class="btn btn-primary" th:href="@{/specialOffers/create(pizzaId=${pizza.id})}">Add Special Offer</a>
+        </div>
+        <table class="table" th:if="${pizza.specialOffers.size()>0}">
             <thead>
             <tr>
                 <th>Title</th>
@@ -39,9 +42,21 @@
                 <td th:text="*{title}"></td>
                 <td th:text="*{#temporals.format(startDate, 'dd-MM-yyyy')}"></td>
                 <td th:text="*{#temporals.format(expiryDate, 'dd-MM-yyyy')}"></td>
+                <td class="d-flex align-items-center gap-1">
+                    <a class="btn btn-primary" th:href="@{|/specialOffers/edit/*{id}|}"><i
+                            class="fa-solid fa-pen-to-square"></i></a>
+                    <form
+                            th:action="@{|/specialOffers/delete/*{id}|}" method="post">
+                        <button class=" btn btn-danger" type="submit"><i class="fa-regular fa-trash-can"></i></button>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>
+        <!--   Messaggio se non ci sono offerte speciali per la pizza     -->
+        <div class="alert alert-info" th:unless="${pizza.specialOffers.size()>0}">There are no Special Offers for this
+            Pizza
+        </div>
     </section>
 </div>
 

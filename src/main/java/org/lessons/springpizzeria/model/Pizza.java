@@ -9,6 +9,7 @@ import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -34,8 +35,8 @@ public class Pizza {
 
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "pizza")
-    private List<SpecialOffer> specialOffers; // relazione con le special offers
+    @OneToMany(mappedBy = "pizza", cascade = {CascadeType.REMOVE})
+    private List<SpecialOffer> specialOffers = new ArrayList<>(); // relazione con le special offers
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
