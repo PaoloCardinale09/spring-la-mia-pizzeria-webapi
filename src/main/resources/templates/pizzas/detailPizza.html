@@ -12,20 +12,36 @@
 
 <div class="container" th:object="${pizza}">
     <section>
-        <h1 th:text="*{name}"></h1>
-        <div class="card d-flex" style="width: 30rem;">
-            <img th:src="*{picUrl}" class="card-img-top my-img" alt="...">
-            <div class="card-body">
-                <h5 th:text="*{name}" class="card-title"></h5>
-                <p th:text="*{description}" class="card-text"></p>
-                <p th:text="|Price: *{price} €|" class="card-text"></p>
-                <p th:text="|Created: ${pizza.getFormattedCreatedAt}|" class="card-text"></p>
-                <!--            <a href="#" class="btn btn-primary">Go somewhere</a>-->
+        <div class="row">
+            <h1 class="my-3 text-center" th:text="*{name}"></h1>
+
+            <dl class="col-6">
+
+                <dt>Name</dt>
+                <dd th:text="*{name}"></dd>
+
+
+                <dt>Description</dt>
+                <dd th:text="*{description}"></dd>
+
+                <dt>Price</dt>
+                <dd th:text="*{price} +' €'"></dd>
+
+                <dt>ID</dt>
+                <dd th:text="*{id}"></dd>
+
+                <dt>Created at</dt>
+                <dd th:text=" *{#temporals.format(createdAt, 'dd-MM-yyyy hh:mm')}"></dd>
+
+            </dl>
+            <div class="col-6">
+                <img th:src="*{picUrl}" class=" rounded rounded-3 card-img-top my-img" alt="...">
             </div>
         </div>
     </section>
+
     <section>
-        <h2>Special offers</h2>
+        <h2 class="my-3">Special offers</h2>
         <div class="my-3">
             <a class="btn btn-primary" th:href="@{/specialOffers/create(pizzaId=${pizza.id})}">Add Special Offer</a>
         </div>
@@ -35,6 +51,7 @@
                 <th>Title</th>
                 <th>Start date</th>
                 <th>Expiry date</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
