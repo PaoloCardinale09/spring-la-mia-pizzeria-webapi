@@ -83,6 +83,21 @@
             <!--            add  a button cancel-->
             <a th:href="@{/pizzas}" class="btn btn-primary">cancel</a>
         </div>
+
+<!--        -->
+        <div class="col-4">
+            <h3>Ingredients</h3>
+            <div class="form-check" th:each="ingredient : ${ingredientList}">
+                <input class="form-check-input" type="checkbox" th:value="${ingredient.id}" th:id="|ingredient_${ingredient.id}|"
+                       th:field="*{ingredients}">
+                <label class="form-check-label" th:for="|ingredient_${ingredient.id}|" th:text="${ingredient.name}">
+                </label>
+            </div>
+        </div>
+        <div class="col-12 mt-3">
+            <button class="btn btn-primary" type="submit">Save</button>
+            <a class="btn btn-primary" th:href="@{/pizzas}">Cancel</a>
+        </div>
     </form>
 
 </div>

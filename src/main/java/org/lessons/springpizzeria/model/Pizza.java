@@ -38,6 +38,22 @@ public class Pizza {
     @OneToMany(mappedBy = "pizza", cascade = {CascadeType.REMOVE})
     private List<SpecialOffer> specialOffers = new ArrayList<>(); // relazione con le special offers
 
+    @ManyToMany
+    @JoinTable(
+            name = "ingredient_pizza",
+            joinColumns = @JoinColumn(name = "pizza_id"),
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id")
+    )
+    private List<Ingredient> ingredients = new ArrayList<>();
+
+    public List<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }

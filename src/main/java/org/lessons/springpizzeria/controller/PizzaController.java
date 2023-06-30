@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.lessons.springpizzeria.messages.AlertMessage;
 import org.lessons.springpizzeria.messages.AlertMessageType;
 import org.lessons.springpizzeria.model.Pizza;
+import org.lessons.springpizzeria.repository.IngredientRepository;
 import org.lessons.springpizzeria.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,9 @@ public class PizzaController {
     // dipende da PizzaRepository
     @Autowired
     private PizzaRepository pizzaRepository;
+
+    @Autowired
+    private IngredientRepository ingredientRepository;
 
 //    @GetMapping
 //    public String list(Model model) { // è la mappa di attributi che il controller passa alla view
@@ -75,16 +79,22 @@ public class PizzaController {
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("pizza", new Pizza());
+        // aggiungo al model la lista degli ingrerdienti per popolare le checkbox
+        model.addAttribute("ingredientList", ingredientRepository.findAll());
 //        return "/pizzas/create"; // template del form di creazione pizza
         return "/pizzas/edit";
     }
 
     // controller che gestisce la post del form con i dati della nuova pizza
     @PostMapping("/create")
-    public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String store(@Valid @ModelAttribute("pizza") Pizza formPizza,
+                        BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
         // i dati della pizza sono dentro formPizza
         // verifico se ci sono errori
         if (bindingResult.hasErrors()) {
+            // aggiungo al model la lista degli ingrerdienti per popolare le checkbox
+            model.addAttribute("ingredientList", ingredientRepository.findAll());
+
             return "/pizzas/edit"; // ritorno il tamplate del form con la pizza precaricata
         }
         // setto timestamp di creazione
@@ -111,6 +121,8 @@ public class PizzaController {
         //recupero dati da DB
         // aggiungo pizza al model
         model.addAttribute("pizza", pizza);
+        // aggiungo al model la lista degli ingrerdienti per popolare le checkbox
+        model.addAttribute("ingredientList", ingredientRepository.findAll());
         //restituisco il template edit
         return "pizzas/edit";
 
@@ -119,11 +131,13 @@ public class PizzaController {
     @PostMapping("/edit/{id}")
     public String doEdit(@PathVariable Integer id,
                          @Valid @ModelAttribute("pizza") Pizza formPizza,
-                         BindingResult bindingresult, RedirectAttributes redirectAttributes) {
+                         BindingResult bindingresult, RedirectAttributes redirectAttributes, Model model) {
         // cerco pizza da id
         Pizza pizzaToEdit = getPizzaById(id); // vecchia versione di pizza
         // valido formPizza
         if (bindingresult.hasErrors()) {
+            // aggiungo al model la lista degli ingrerdienti per popolare le checkbox
+            model.addAttribute("ingredientList", ingredientRepository.findAll());
             // se ci sono errori ritorno il template con il form
             return "/pizzas/edit";
         }

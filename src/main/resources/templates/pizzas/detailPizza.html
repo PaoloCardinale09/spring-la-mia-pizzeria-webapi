@@ -38,6 +38,14 @@
                 <img th:src="*{picUrl}" class=" rounded rounded-3 card-img-top my-img" alt="...">
             </div>
         </div>
+
+        <div class="col-4">
+            <h3>Ingredients</h3>
+            <ul th:if="*{ingredients.size() > 0}">
+                <li th:each="ingredient : *{ingredients}" th:text="${ingredient.name}"></li>
+            </ul>
+            <div th:unless="*{ingredients.size() > 0}" class="alert alert-info">No ingredients</div>
+        </div>
     </section>
 
     <section>
