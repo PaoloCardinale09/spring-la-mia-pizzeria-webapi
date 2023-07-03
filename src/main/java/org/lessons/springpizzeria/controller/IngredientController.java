@@ -31,15 +31,15 @@ public class IngredientController {
         // se ho il parametro ingredientId allora cerco l' ingrediente su database
         if (ingredientId.isPresent()) {
             Optional<Ingredient> ingredientDb = ingredientRepository.findById(ingredientId.get());
-            // se è presente valorizzo categoryObj con la categoria da db
+            // se è presente valorizzo ingredientObj con l'ingredient da db
             if (((Optional<?>) ingredientDb).isPresent()) {
                 ingredientObj = ingredientDb.get();
             } else {
-                // se non è presente valorizzo categoryObj con una categoria vuota
+                // se non è presente valorizzo ingredientObj con un ingredient vuot
                 ingredientObj = new Ingredient();
             }
         } else {
-            // se non ho il parametro categoryObj con una categoria vuota
+            // se non ho il parametro ingredintObj con una ingredient vuota
             ingredientObj = new Ingredient();
         }
         // passo al model un attributo categoryObj per mappare il form su un oggetto di tipo Category
@@ -56,7 +56,7 @@ public class IngredientController {
             model.addAttribute("ingredients", ingredientRepository.findAll());
             return "/ingredients/index";
         }
-        // salvare la categoria
+        // salvare l' ingredient
         ingredientRepository.save(formIngredient);
         // fa la redirect alla index
         return "redirect:/ingredients";
@@ -69,7 +69,7 @@ public class IngredientController {
         if (result.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        // categoria che devo eliminare
+        // ingredient che devo eliminare
         Ingredient ingredientToDelete = result.get();
         // per ogni pizza associata all' ingredient da eliminare
         for (Pizza pizza : ingredientToDelete.getPizzas()) {

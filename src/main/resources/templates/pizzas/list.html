@@ -50,7 +50,7 @@
             <td th:text="${pizza.description}"></td>
             <td th:text="${pizza.price + ' €'} "></td>
             <td class="text-center " th:if="${pizza.specialOffers.size() > 0}"><i
-                    class="fa-regular fa-square-check"></i>
+                    class=" fa-regular fa-circle-check"></i>
             </td>
             <td th:unless="${pizza.specialOffers.size() >0}"></td>
             <td>

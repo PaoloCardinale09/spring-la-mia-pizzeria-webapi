@@ -6,3 +6,9 @@ INSERT INTO `special_offers` (`expiry_date`, `id`, `pizza_id`, `start_date`, `ti
 INSERT INTO `ingredients` (`id`, `name`, `description`) VALUES (NULL, 'Mozzarella', 'A southern Italian cheese traditionally made from Italian buffalo\'s milk by the pasta filata method.'), (NULL, 'Sauce', 'Is traditionally made from tomato, and can be additionally seasoned with wide variety of spices and herbs. '), (NULL, 'Basil', 'Is a culinary herb of the family Lamiaceae (mints). ')
 
 INSERT INTO `ingredient_pizza` (`ingredient_id`, `pizza_id`) VALUES ('1', '1'), ('2','1'),('3','1');
+
+
+-- user
+INSERT INTO `roles` (`id`, `name`) VALUES (NULL, 'ADMIN'), (NULL, 'USER');
+
+INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `password`) VALUES (NULL, 'mariorossi@hotmail.it', 'mario', 'rossi', '{noop}ok'), (NULL, 'claudianeri@gmail.com', 'claudia', 'neri', '{noop}ok');
