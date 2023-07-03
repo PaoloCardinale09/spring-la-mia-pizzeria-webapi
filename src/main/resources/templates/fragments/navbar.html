@@ -14,11 +14,11 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <!--Faccio append della classe active se sono nell' area corrispondente del link-->
-             
+
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/pizzas}" th:classappend="${current== 'pizzas' ? 'active' : ''}">Pizzas</a>
                 </li>
-                <li class="nav-item">
+                <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
                     <a class="nav-link" th:href="@{/ingredients}"
                        th:classappend="${current== 'ingredients' ? 'active' : ''}">Ingredients</a>
                 </li>

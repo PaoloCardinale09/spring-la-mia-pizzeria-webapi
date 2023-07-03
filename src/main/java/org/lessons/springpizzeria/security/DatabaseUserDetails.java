@@ -1,43 +1,71 @@
 package org.lessons.springpizzeria.security;
 
+import org.lessons.springpizzeria.model.Role;
+import org.lessons.springpizzeria.model.User;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 public class DatabaseUserDetails implements UserDetails {
+    private final Integer id;
+    private final String username;
+    private final String password;
+
+    private final Set<GrantedAuthority> authorities;
+
+    // costruttore che copia i dati di uno User per costruire un databaseUserDetails
+
+    public DatabaseUserDetails(User user) {
+        // copio i campi che hanno corrispondenza
+        this.id = user.getId();
+        this.username = user.getEmail();
+        this.password = user.getPassword();
+
+        this.authorities = new HashSet<>();
+        // itero su tutti i ruoli e li trasformo in authorities
+        for (Role role : user.getRoles()) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+
+        }
+
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override
     public String getPassword() {
-        return null;
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return username;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

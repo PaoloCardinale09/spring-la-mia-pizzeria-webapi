@@ -160,7 +160,6 @@ public class PizzaController {
         pizzaRepository.delete(pizzaToDelete);
         // add messaggio di successo come flashattribute
         redirectAttributes.addFlashAttribute("message",
-
                 new AlertMessage(AlertMessageType.SUCCESS, pizzaToDelete.getName() + " deleted!"));
         return "redirect:/pizzas";
 

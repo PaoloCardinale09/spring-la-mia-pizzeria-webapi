@@ -51,7 +51,8 @@
     <section>
         <h2 class="my-3">Special offers</h2>
         <div class="my-3">
-            <a class="btn btn-primary" th:href="@{/specialOffers/create(pizzaId=${pizza.id})}">Add Special Offer</a>
+            <a sec:authorize="hasAuthority('ADMIN')" class="btn btn-primary"
+               th:href="@{/specialOffers/create(pizzaId=${pizza.id})}">Add Special Offer</a>
         </div>
         <table class="table" th:if="${pizza.specialOffers.size()>0}">
             <thead>
@@ -67,7 +68,7 @@
                 <td th:text="*{title}"></td>
                 <td th:text="*{#temporals.format(startDate, 'dd-MM-yyyy')}"></td>
                 <td th:text="*{#temporals.format(expiryDate, 'dd-MM-yyyy')}"></td>
-                <td class="d-flex align-items-center gap-1">
+                <td sec:authorize="hasAuthority('ADMIN')" class="d-flex align-items-center gap-1">
                     <a class="btn btn-primary" th:href="@{|/specialOffers/edit/*{id}|}"><i
                             class="fa-solid fa-pen-to-square"></i></a>
                     <form

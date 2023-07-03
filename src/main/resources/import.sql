@@ -9,6 +9,8 @@ INSERT INTO `ingredient_pizza` (`ingredient_id`, `pizza_id`) VALUES ('1', '1'), 
 
 
 -- user
-INSERT INTO `roles` (`id`, `name`) VALUES (NULL, 'ADMIN'), (NULL, 'USER');
+INSERT INTO `roles` (`id`, `name`) VALUES (1, 'ADMIN'), (2, 'USER');
 
-INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `password`) VALUES (NULL, 'mariorossi@hotmail.it', 'mario', 'rossi', '{noop}ok'), (NULL, 'claudianeri@gmail.com', 'claudia', 'neri', '{noop}ok');
+INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `password`) VALUES (1, 'mariorossi@hotmail.it', 'mario', 'rossi', '{noop}ok'), (2, 'claudianeri@gmail.com', 'claudia', 'neri', '{noop}ok');
+INSERT INTO users_roles (roles_id, user_id) VALUES(1, 1);
+INSERT INTO users_roles (roles_id, user_id) VALUES(2, 2);

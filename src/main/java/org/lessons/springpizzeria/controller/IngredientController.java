@@ -58,6 +58,8 @@ public class IngredientController {
         }
         // salvare l' ingredient
         ingredientRepository.save(formIngredient);
+        
+
         // fa la redirect alla index
         return "redirect:/ingredients";
     }
@@ -75,6 +77,7 @@ public class IngredientController {
         for (Pizza pizza : ingredientToDelete.getPizzas()) {
             pizza.getIngredients().remove(ingredientToDelete);
         }
+
 
         ingredientRepository.deleteById(id);
         return "redirect:/ingredients";
