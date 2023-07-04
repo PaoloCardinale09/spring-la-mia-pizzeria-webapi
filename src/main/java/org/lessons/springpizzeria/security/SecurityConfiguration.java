@@ -42,16 +42,20 @@ public class SecurityConfiguration {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // definisco la catena di filtri
         http.authorizeHttpRequests()
+                .requestMatchers("/pizzas").permitAll()
+
                 .requestMatchers("/ingredients").hasAuthority("ADMIN")
                 .requestMatchers("/pizzas/edit/**").hasAuthority("ADMIN")
                 .requestMatchers("/pizzas/edit/**").hasAuthority("ADMIN")
-                .requestMatchers(HttpMethod.POST).hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/pizzas/**").hasAuthority("ADMIN")
                 .requestMatchers("/pizzas/**").hasAnyAuthority("ADMIN", "USER")
                 .requestMatchers("/specialoffers/**").hasAuthority("ADMIN")
                 // chiedo di essere loggato come ADMIN  per tutti i metodi POST (i metodi post hanno potere di modify)
                 .requestMatchers("/**").permitAll()
                 .and().formLogin()
                 .and().logout();
+        // disabilitiamo csrf per invocare postman
+        http.csrf().disable();
         return http.build();
 
     }

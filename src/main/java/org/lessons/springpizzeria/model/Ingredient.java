@@ -1,5 +1,6 @@
 package org.lessons.springpizzeria.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -22,6 +23,7 @@ public class Ingredient {
     private String description;
 
     @ManyToMany(mappedBy = "ingredients")
+    @JsonIgnore
     private List<Pizza> pizzas = new ArrayList<>();
 
     public List<Pizza> getPizzas() {

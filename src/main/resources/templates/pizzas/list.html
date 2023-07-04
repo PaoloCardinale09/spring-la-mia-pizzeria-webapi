@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head th:insert="/fragments/resources :: head(pageTitle='Pizzas List')">
 
 
@@ -55,7 +56,8 @@
             <td th:unless="${pizza.specialOffers.size() >0}"></td>
             <td>
                 <div class="d-flex align-items-center gap-1 ">
-                    <a class="btn btn-primary" th:href="@{|/pizzas/${pizza.id}|}"><i
+                    <a sec:authorize="hasAuthority('ADMIN,USER')" class="btn btn-primary"
+                       th:href="@{|/pizzas/${pizza.id}|}"><i
                             class="  fa-solid fa-circle-info"></i></a>
                     <a class="btn btn-primary " sec:authorize="hasAuthority('ADMIN')"
                        th:href="@{|/pizzas/edit/${pizza.id}|}"><i

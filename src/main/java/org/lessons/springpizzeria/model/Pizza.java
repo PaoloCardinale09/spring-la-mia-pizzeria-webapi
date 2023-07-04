@@ -1,5 +1,6 @@
 package org.lessons.springpizzeria.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
@@ -34,11 +35,13 @@ public class Pizza {
     private BigDecimal price;
 
     private LocalDateTime createdAt;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "pizza", cascade = {CascadeType.REMOVE})
     private List<SpecialOffer> specialOffers = new ArrayList<>(); // relazione con le special offers
 
+
     @ManyToMany
+    
     @JoinTable(
             name = "ingredient_pizza",
             joinColumns = @JoinColumn(name = "pizza_id"),
