@@ -32,7 +32,7 @@ public class IngredientController {
         if (ingredientId.isPresent()) {
             Optional<Ingredient> ingredientDb = ingredientRepository.findById(ingredientId.get());
             // se è presente valorizzo ingredientObj con l'ingredient da db
-            if (((Optional<?>) ingredientDb).isPresent()) {
+            if (ingredientDb.isPresent()) {
                 ingredientObj = ingredientDb.get();
             } else {
                 // se non è presente valorizzo ingredientObj con un ingredient vuot
@@ -58,7 +58,7 @@ public class IngredientController {
         }
         // salvare l' ingredient
         ingredientRepository.save(formIngredient);
-        
+
 
         // fa la redirect alla index
         return "redirect:/ingredients";
